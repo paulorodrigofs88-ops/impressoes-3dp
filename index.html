@@ -1,48 +1,97 @@
+
 <!DOCTYPE html>
-<html lang="pt-BR" data-tema="escuro">
+<html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Catálogo de produtos personalizados feitos em impressão 3D.">
-  <title>3D Store | Minha Loja 3D</title>
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Minha Loja 3D</title>
+
   <link rel="stylesheet" href="style.css">
+
   <script src="script.js" defer></script>
 </head>
+
 <body>
-  <div class="container" id="inicio">
-    <header class="cabecalho">
+
+  <div class="container">
+
+    <!-- CABEÇALHO -->
+    <header>
+
       <div class="topo">
-        <a class="logo" href="#inicio">3D<span>STORE</span></a>
-        <button id="alternarTema" class="btn-tema" type="button" aria-pressed="false">
+
+        <div class="logo">3D STORE</div>
+
+        <button id="alternarTema"
+                type="button"
+                aria-pressed="false">
           ☀️ Modo claro
         </button>
+
       </div>
 
       <div class="apresentacao">
-        <span class="destaque">IMPRESSÃO 3D PERSONALIZADA</span>
-        <h1>Transformamos ideias em 3D</h1>
-        <p>Escolha seu modelo, personalize a cor e o material e faça seu pedido pelo WhatsApp.</p>
-        <a class="btn-explorar" href="#produtos">Ver modelos</a>
+
+        <span class="destaque">
+          IMPRESSÃO 3D PERSONALIZADA
+        </span>
+
+        <h1>Minha Loja 3D</h1>
+
+        <p>
+          Escolha seu modelo favorito,
+          personalize a cor e faça seu pedido
+          diretamente pelo WhatsApp!
+        </p>
+
       </div>
+
     </header>
 
     <main>
-      <section class="admin" aria-labelledby="titulo-admin">
-        <div class="secao-titulo">
-          <h2 id="titulo-admin">Gerenciar catálogo</h2>
-          <p>Cadastre modelos 3D e os filamentos que você tem para impressão.</p>
-        </div>
 
+      <!-- GERENCIAMENTO -->
+      <section class="admin">
+
+        <h2>Gerenciar catálogo</h2>
+
+        <p class="subtexto">
+          Cadastre seus modelos e filamentos.
+        </p>
+
+        <!-- ADICIONAR MODELO -->
         <details class="painel">
-          <summary>+ Adicionar modelo 3D</summary>
+
+          <summary>
+            + Adicionar modelo 3D
+          </summary>
+
           <form id="formModelo">
+
             <div class="campos">
+
               <div class="campo">
-                <label for="nomeModelo">Nome do modelo</label>
-                <input id="nomeModelo" type="text" maxlength="80" placeholder="Ex.: Dragão articulado" required>
+                <label for="nomeModelo">
+                  Nome do modelo
+                </label>
+
+                <input
+                  id="nomeModelo"
+                  type="text"
+                  placeholder="Ex: Dragão articulado"
+                  maxlength="80"
+                  required>
               </div>
+
               <div class="campo">
-                <label for="categoriaModelo">Categoria</label>
+                <label for="categoriaModelo">
+                  Categoria
+                </label>
+
                 <select id="categoriaModelo">
                   <option>Decoração</option>
                   <option>Chaveiros</option>
@@ -53,33 +102,91 @@
                   <option>Outros</option>
                 </select>
               </div>
+
               <div class="campo completo">
-                <label for="descricaoModelo">Descrição</label>
-                <textarea id="descricaoModelo" rows="3" maxlength="1000" placeholder="Descreva o produto..."></textarea>
+                <label for="descricaoModelo">
+                  Descrição do produto
+                </label>
+
+                <textarea
+                  id="descricaoModelo"
+                  rows="3"
+                  maxlength="1000"
+                  placeholder="Descreva seu modelo 3D...">
+                </textarea>
               </div>
+
               <div class="campo">
-                <label for="precoModelo">Preço em R$ (opcional)</label>
-                <input id="precoModelo" type="number" min="0" step="0.01" placeholder="Ex.: 35.00">
+                <label for="precoModelo">
+                  Preço (R$)
+                </label>
+
+                <input
+                  id="precoModelo"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  placeholder="Ex: 35.00">
               </div>
-              <div class="campo">
-                <label for="fotoModelo">Link da foto (opcional)</label>
-                <input id="fotoModelo" type="url" placeholder="https://exemplo.com/foto.jpg">
+
+              <!-- CAMPO MODIFICADO -->
+              <div class="campo completo">
+
+                <label for="fotoModelo">
+                  Foto do produto
+                </label>
+
+                <input
+                  id="fotoModelo"
+                  type="text"
+                  placeholder="Ex: imagens/dragao.png">
+
+                <small class="ajuda">
+                  Digite o caminho da foto na pasta
+                  imagens ou cole um link da internet.
+                </small>
+
               </div>
+
             </div>
-            <button class="btn-salvar" type="submit">Salvar modelo</button>
+
+            <button type="submit" class="btn-salvar">
+              Salvar modelo
+            </button>
+
           </form>
+
         </details>
 
+        <!-- ADICIONAR FILAMENTO -->
         <details class="painel">
-          <summary>+ Adicionar filamento disponível</summary>
+
+          <summary>
+            + Adicionar filamento disponível
+          </summary>
+
           <form id="formFilamento">
+
             <div class="campos">
+
               <div class="campo">
-                <label for="nomeCor">Nome da cor</label>
-                <input id="nomeCor" type="text" maxlength="50" placeholder="Ex.: Azul" required>
+                <label for="nomeCor">
+                  Nome da cor
+                </label>
+
+                <input
+                  id="nomeCor"
+                  type="text"
+                  maxlength="50"
+                  placeholder="Ex: Azul"
+                  required>
               </div>
+
               <div class="campo">
-                <label for="tipoFilamento">Material</label>
+                <label for="tipoFilamento">
+                  Material
+                </label>
+
                 <select id="tipoFilamento">
                   <option>PLA</option>
                   <option>PETG</option>
@@ -89,56 +196,110 @@
                   <option>Outro</option>
                 </select>
               </div>
+
               <div class="campo">
-                <label for="marcaFilamento">Marca (opcional)</label>
-                <input id="marcaFilamento" type="text" maxlength="60" placeholder="Ex.: Voolt3D">
+                <label for="marcaFilamento">
+                  Marca (opcional)
+                </label>
+
+                <input
+                  id="marcaFilamento"
+                  type="text"
+                  maxlength="60"
+                  placeholder="Ex: Voolt3D">
               </div>
+
               <div class="campo">
-                <label for="corFilamento">Cor do filamento</label>
-                <input id="corFilamento" type="color" value="#2563eb">
+                <label for="corFilamento">
+                  Cor do filamento
+                </label>
+
+                <input
+                  id="corFilamento"
+                  type="color"
+                  value="#2563eb">
               </div>
+
             </div>
-            <button class="btn-salvar" type="submit">Salvar filamento</button>
+
+            <button type="submit" class="btn-salvar">
+              Salvar filamento
+            </button>
+
           </form>
+
         </details>
+
       </section>
 
-      <section class="secao" aria-labelledby="titulo-cores">
-        <div class="secao-titulo">
-          <h2 id="titulo-cores">Cores e materiais disponíveis</h2>
-          <p>Opções para personalizar os modelos da loja.</p>
+      <!-- CORES DISPONÍVEIS -->
+      <section class="secao">
+
+        <h2>Cores e materiais disponíveis</h2>
+
+        <p class="subtexto">
+          Escolha uma opção para personalizar
+          sua impressão 3D.
+        </p>
+
+        <div
+          id="listaFilamentos"
+          class="lista-cores">
         </div>
-        <div id="listaFilamentos" class="lista-cores"></div>
+
       </section>
 
-      <section id="produtos" class="secao" aria-labelledby="titulo-produtos">
+      <!-- CATÁLOGO -->
+      <section class="secao">
+
         <div class="barra-catalogo">
-          <div class="secao-titulo">
-            <h2 id="titulo-produtos">Nossos modelos 3D</h2>
-            <p>Escolha um produto e envie seu pedido.</p>
+
+          <div>
+            <h2>Nossos modelos 3D</h2>
+
+            <p class="subtexto">
+              Escolha seu modelo favorito!
+            </p>
           </div>
-          <label class="filtro-label" for="filtroCategoria">
-            Categoria
-            <select id="filtroCategoria">
-              <option value="Todos">Todas as categorias</option>
-              <option>Decoração</option>
-              <option>Chaveiros</option>
-              <option>Articulados</option>
-              <option>Miniaturas</option>
-              <option>Utilitários</option>
-              <option>Personalizados</option>
-              <option>Outros</option>
-            </select>
-          </label>
+
+          <select id="filtroCategoria"
+                  aria-label="Filtrar modelos">
+
+            <option value="Todos">
+              Todas as categorias
+            </option>
+
+            <option>Decoração</option>
+            <option>Chaveiros</option>
+            <option>Articulados</option>
+            <option>Miniaturas</option>
+            <option>Utilitários</option>
+            <option>Personalizados</option>
+            <option>Outros</option>
+
+          </select>
+
         </div>
-        <div id="catalogo" class="grade-produtos"></div>
+
+        <div
+          id="catalogo"
+          class="grade-produtos">
+        </div>
+
       </section>
+
     </main>
 
+    <!-- RODAPÉ -->
     <footer>
-      <p><strong>3D STORE</strong> · Produtos feitos em impressão 3D</p>
-      <a href="https://wa.me/5544933007211" target="_blank" rel="noopener noreferrer">Fale pelo WhatsApp</a>
+
+      <p>3D STORE | Impressão 3D personalizada</p>
+
+      <p>Faça seus pedidos pelo WhatsApp!</p>
+
     </footer>
+
   </div>
+
 </body>
 </html>

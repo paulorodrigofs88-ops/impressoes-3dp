@@ -1,12 +1,10 @@
 
-/* ==========================================
-   MINHA LOJA 3D - JAVASCRIPT COMPLETO
-========================================== */
+// ======================================
+// CONFIGURAÇÕES DA LOJA
+// ======================================
 
-// SEU NÚMERO DO WHATSAPP
 const whatsapp = "5544933007211";
 
-// ARMAZENAMENTO
 const CHAVE_MODELOS = "loja3d_modelos";
 const CHAVE_FILAMENTOS = "loja3d_filamentos";
 const CHAVE_TEMA = "loja3d_tema";
@@ -14,12 +12,12 @@ const CHAVE_TEMA = "loja3d_tema";
 // PRODUTOS INICIAIS
 const modelosIniciais = [];
 
-// CORES E MATERIAIS INICIAIS
+// FILAMENTOS INICIAIS
 const filamentosIniciais = [];
 
-/* ==========================================
-   CARREGAR E SALVAR DADOS
-========================================== */
+// ======================================
+// ARMAZENAMENTO
+// ======================================
 
 function carregarLista(chave, padrao) {
   try {
@@ -61,14 +59,14 @@ function salvarDados() {
 
     return true;
   } catch (erro) {
-    alert("Erro ao salvar os dados no navegador.");
+    alert("Erro ao salvar os dados.");
     return false;
   }
 }
 
-/* ==========================================
-   FUNÇÕES AUXILIARES
-========================================== */
+// ======================================
+// FUNÇÕES AUXILIARES
+// ======================================
 
 function criar(tag, classe = "", texto) {
   const elemento = document.createElement(tag);
@@ -93,33 +91,75 @@ function gerarId() {
 }
 
 function formatarPreco(valor) {
-  return Number(valor).toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  });
+  return Number(valor).toLocaleString(
+    "pt-BR",
+    {
+      style: "currency",
+      currency: "BRL"
+    }
+  );
 }
+
+// ======================================
+// VERIFICAR CAMINHO DA FOTO
+// ======================================
+
+// Agora aceita:
+// imagens/dragao.png
+// imagens/chaveiro.jpg
+// ./imagens/miniatura.webp
+// https://site.com/foto.png
 
 function urlValida(valor) {
-  try {
-    const url = new URL(valor);
-
-    return (
-      url.protocol === "https:" ||
-      url.protocol === "http:"
-    );
-  } catch (erro) {
+  if (typeof valor !== "string") {
     return false;
   }
+
+  const caminho = valor.trim();
+
+  if (!caminho) {
+    return false;
+  }
+
+  // LINK DE SITE EXTERNO
+  if (/^https?:\/\//i.test(caminho)) {
+    try {
+      const url = new URL(caminho);
+
+      return (
+        url.protocol === "https:" ||
+        url.protocol === "http:"
+      );
+    } catch (erro) {
+      return false;
+    }
+  }
+
+  // ARQUIVO LOCAL NA PASTA IMAGENS
+  const local = caminho.startsWith("./")
+    ? caminho.slice(2)
+    : caminho;
+
+  return (
+    local.startsWith("imagens/") &&
+    local.length > "imagens/".length &&
+    !local.includes("..") &&
+    !local.includes("\\") &&
+    !local.includes(":") &&
+    !local.includes("?") &&
+    !local.includes("#")
+  );
 }
 
-/* ==========================================
-   INICIAR SITE
-========================================== */
+// ======================================
+// INICIAR LOJA
+// ======================================
 
 function iniciarLoja() {
 
-  // ELEMENTOS DO HTML
-  const catalogo = document.getElementById("catalogo");
+  const catalogo = document.getElementById(
+    "catalogo"
+  );
 
   const listaFilamentos = document.getElementById(
     "listaFilamentos"
@@ -141,9 +181,9 @@ function iniciarLoja() {
     "alternarTema"
   );
 
-  /* ========================================
-     MOSTRAR FILAMENTOS
-  ======================================== */
+  // ====================================
+  // MOSTRAR FILAMENTOS
+  // ====================================
 
   function mostrarFilamentos() {
 
@@ -193,7 +233,7 @@ function iniciarLoja() {
       );
 
       remover.type = "button";
-      remover.title = "Excluir filamento";
+      remover.title = "Remover filamento";
 
       remover.addEventListener("click", () => {
 
@@ -214,15 +254,19 @@ function iniciarLoja() {
         atualizarLoja();
       });
 
-      item.append(bolinha, nome, remover);
+      item.append(
+        bolinha,
+        nome,
+        remover
+      );
 
       listaFilamentos.appendChild(item);
     });
   }
 
-  /* ========================================
-     MOSTRAR MODELOS 3D
-  ======================================== */
+  // ====================================
+  // MOSTRAR MODELOS
+  // ====================================
 
   function mostrarModelos() {
 
@@ -246,7 +290,7 @@ function iniciarLoja() {
         criar(
           "p",
           "mensagem-vazia",
-          "Nenhum modelo encontrado. Adicione seu primeiro produto!"
+          "Nenhum modelo encontrado. Cadastre seu primeiro produto!"
         )
       );
 
@@ -257,7 +301,10 @@ function iniciarLoja() {
 
       const card = criar("article", "card");
 
-      // FOTO DO PRODUTO
+      // ==================================
+      // IMAGEM DO PRODUTO
+      // ==================================
+
       function semFoto() {
         return criar(
           "div",
@@ -273,7 +320,8 @@ function iniciarLoja() {
           "foto-produto"
         );
 
-        imagem.src = modelo.foto;
+        // ACEITA IMAGEM LOCAL OU EXTERNA
+        imagem.src = modelo.foto.trim();
         imagem.alt = modelo.nome;
         imagem.loading = "lazy";
 
@@ -287,7 +335,10 @@ function iniciarLoja() {
         card.appendChild(semFoto());
       }
 
+      // ==================================
       // INFORMAÇÕES
+      // ==================================
+
       const info = criar(
         "div",
         "info-produto"
@@ -333,9 +384,9 @@ function iniciarLoja() {
         preco
       );
 
-      /* ====================================
-         PERSONALIZAÇÃO
-      ==================================== */
+      // ==================================
+      // PERSONALIZAÇÃO
+      // ==================================
 
       const personalizacao = criar(
         "div",
@@ -359,7 +410,6 @@ function iniciarLoja() {
         );
 
         opcao.value = "";
-
         selectCor.appendChild(opcao);
 
       } else {
@@ -410,9 +460,9 @@ function iniciarLoja() {
 
       info.appendChild(personalizacao);
 
-      /* ====================================
-         WHATSAPP
-      ==================================== */
+      // ==================================
+      // PEDIDO PELO WHATSAPP
+      // ==================================
 
       const botao = criar(
         "a",
@@ -451,6 +501,7 @@ function iniciarLoja() {
           "Quantidade: " + qtd + "\n";
 
         if (possuiPreco) {
+
           mensagem +=
             "Preço unitário: " +
             formatarPreco(modelo.preco) + "\n";
@@ -491,9 +542,9 @@ function iniciarLoja() {
 
       info.appendChild(botao);
 
-      /* ====================================
-         EXCLUIR MODELO
-      ==================================== */
+      // ==================================
+      // EXCLUIR MODELO
+      // ==================================
 
       const remover = criar(
         "button",
@@ -525,14 +576,13 @@ function iniciarLoja() {
       info.appendChild(remover);
 
       card.appendChild(info);
-
       catalogo.appendChild(card);
     });
   }
 
-  /* ========================================
-     CADASTRAR MODELO
-  ======================================== */
+  // ====================================
+  // CADASTRAR MODELO 3D
+  // ====================================
 
   if (formModelo) {
 
@@ -567,8 +617,12 @@ function iniciarLoja() {
           return;
         }
 
+        // VALIDAR IMAGEM LOCAL OU EXTERNA
         if (foto && !urlValida(foto)) {
-          alert("Digite um link válido de imagem.");
+          alert(
+            "Caminho de imagem inválido.\n\n" +
+            "Use imagens/dragao.png ou um link https://..."
+          );
           return;
         }
 
@@ -608,14 +662,14 @@ function iniciarLoja() {
 
         formModelo.reset();
 
-        alert("Modelo 3D cadastrado!");
+        alert("Modelo cadastrado com sucesso!");
       }
     );
   }
 
-  /* ========================================
-     CADASTRAR FILAMENTO
-  ======================================== */
+  // ====================================
+  // CADASTRAR FILAMENTO
+  // ====================================
 
   if (formFilamento) {
 
@@ -665,14 +719,14 @@ function iniciarLoja() {
 
         formFilamento.reset();
 
-        alert("Filamento cadastrado!");
+        alert("Filamento cadastrado com sucesso!");
       }
     );
   }
 
-  /* ========================================
-     FILTRO DE CATEGORIAS
-  ======================================== */
+  // ====================================
+  // FILTRAR CATEGORIAS
+  // ====================================
 
   if (filtroCategoria) {
     filtroCategoria.addEventListener(
@@ -681,9 +735,9 @@ function iniciarLoja() {
     );
   }
 
-  /* ========================================
-     MODO CLARO E ESCURO
-  ======================================== */
+  // ====================================
+  // MODO CLARO E ESCURO
+  // ====================================
 
   let temaAtual = "escuro";
 
@@ -699,9 +753,7 @@ function iniciarLoja() {
       temaAtual = temaSalvo;
     }
   } catch (erro) {
-    console.warn(
-      "Não foi possível carregar o tema."
-    );
+    console.warn("Tema salvo indisponível.");
   }
 
   function aplicarTema(tema) {
@@ -763,24 +815,23 @@ function iniciarLoja() {
     );
   }
 
-  /* ========================================
-     ATUALIZAR A LOJA
-  ======================================== */
+  // ====================================
+  // ATUALIZAR LOJA
+  // ====================================
 
   function atualizarLoja() {
     mostrarFilamentos();
     mostrarModelos();
   }
 
-  // INICIAR TEMA E CATÁLOGO
+  // INICIALIZAÇÃO
   aplicarTema(temaAtual);
   atualizarLoja();
-
 }
 
-/* ==========================================
-   AGUARDAR O HTML CARREGAR
-========================================== */
+// ======================================
+// AGUARDAR HTML CARREGAR
+// ======================================
 
 if (document.readyState === "loading") {
 
@@ -792,5 +843,4 @@ if (document.readyState === "loading") {
 } else {
 
   iniciarLoja();
-
 }
